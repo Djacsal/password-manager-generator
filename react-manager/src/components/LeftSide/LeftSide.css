@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:wght@400;500;700&display=swap');
+
+.left_side {
+  display: flex;
+  flex-direction: column;
+  float: left;
+  width: 20%; 
+  height: 100%;
+  background-color: #202020;
+}
+
+.my_blok {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+  
+.my_blok img {
+  padding-bottom: 2px;
+  width: 80%;
+  height: 50px;
+}
+
+.option {
+  display: flex;
+}
+
+.option:hover {
+  background-color: rgba(136, 136, 136, 0.1);
+  color: #FFFFFF;
+}
+
+.react_icon {
+  margin: 13px 5px 0 5px;
+  color: white;
+}
+
+.option-button {
+  font-family: "PT Serif";
+  text-decoration: none;
+  display: block;
+  color: #FFFFFF;
+  background-color: transparent; 
+  padding: 10px;
+  text-align: left;
+  padding-left: 5px;
+  width: 90%;
+  transition: background-color 0.3s ease;
+}
+  
+.exit {
+  margin-top: auto;
+  padding-left: 5px;
+}
+  
+.exit:hover {
+  color: #888;
+}
+  
+.exit-button {
+  padding-bottom: 50px;
+  color: #ffffff;
+  font-family: "PT Serif";
+  background-color: transparent;
+  border: none;
+  padding: 10px 0;
+  cursor: pointer;
+  font-size: 16px;
+}
