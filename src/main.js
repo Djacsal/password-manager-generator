@@ -20,12 +20,11 @@ const createWindow = () => {
       sandbox: true,
       nodeIntegration: true,
       contextIsolation: true,
-      // Другие настройки безопасности...
     },
   });
   mainWindow.setMenuBarVisibility(false);
   mainWindow.setTitle("Менеджер и генератор паролей");
-  //mainWindow.webContents.openDevTools(); //Консоль
+  mainWindow.webContents.openDevTools(); //Консоль
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);

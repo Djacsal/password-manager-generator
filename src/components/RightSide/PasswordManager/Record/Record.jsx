@@ -1,11 +1,15 @@
-import "./Record.css";
 import React from 'react';
+import "./Record.css";
 
 const Record = () => {
-    
+
     return (
         <div className="records">
-            <h1>Список</h1>
+            <div className="record">
+                <p>Сайт</p>
+                <p>Логин</p>
+                <p>Пароль</p>
+            </div>
         </div>
     );
 };

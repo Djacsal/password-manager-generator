@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-
 import './PasswordGenerator.css';
 
 const PasswordGenerator = () => {
- const [password, setPassword] = useState('');
- const [options, setOptions] = useState({
+  const [password, setPassword] = useState('');
+  const [options, setOptions] = useState({
     uppercase: true,
     lowercase: true,
     numbers: true,
     symbols: true,
     length: 12,
- });
+  });
 
- const MIN_PASSWORD_LENGTH = 1;
+  const MIN_PASSWORD_LENGTH = 4;
+  const MAX_PASSWORD_LENGTH = 30;
 
- const handleChange = (e) => {
+  const handleChange = (e) => {
     const { name, checked, value } = e.target;
     if (name === 'length') {
       setOptions((prevOptions) => ({
@@ -27,7 +27,7 @@ const PasswordGenerator = () => {
         [name]: checked,
       }));
     }
- };
+  };
 
  const generatePassword = () => {
     const charset = {
@@ -140,17 +140,21 @@ const PasswordGenerator = () => {
 
       <div className="password_length">
         <div>
-          Длина:
+          <p>Длина: {options.length}</p>
           <input
-            type="number"
+            type="range"
             name="length"
             value={options.length}
             onChange={handleChange}
             min={MIN_PASSWORD_LENGTH}
+            max={MAX_PASSWORD_LENGTH}
+            step={1}
           />
         </div>
       </div>
+
       <button onClick={handleGeneratePassword}>Сгенерировать пароль</button>
+
       <div className="password-output">
         <p>{password}</p>
         {password && (
@@ -164,7 +168,7 @@ const PasswordGenerator = () => {
         )}
       </div>
     </div>
- );
+  );
 };
 
 export default PasswordGenerator;

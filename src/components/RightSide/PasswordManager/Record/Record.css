@@ -1,0 +1,11 @@
+.record {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 0 0 10px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 520px;
+
+}

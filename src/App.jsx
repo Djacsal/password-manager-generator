@@ -4,12 +4,11 @@ import { HashRouter } from "react-router-dom";
 import LeftSide from "./components/LeftSide/LeftSide";
 import PasswordManager from "./components/RightSide/PasswordManager/PasswordManager";
 import PasswordGenerator from "./components/RightSide/PasswordGenerator/PasswordGenerator";
-
-
+import PasswordForm from './components/RightSide/PasswordForm/PasswordForm';
 
 function App() {
+
   return (
-   
       <div className="App">
         <div className="container">
           <HashRouter>
@@ -17,11 +16,11 @@ function App() {
             <Routes>
               <Route path="/password-manager" element={<PasswordManager />} />
               <Route path="/password-generator" element={<PasswordGenerator />} />
+              <Route path="/password-form" element={<PasswordForm />} />
             </Routes>
           </HashRouter>
         </div>
       </div>
-      
   );
 }
 
@@ -33,12 +32,12 @@ export default App;
     <div className="App">
       <div className="container">
         <HashRouter>
-          <LeftSide />
-          <Routes>
-            <Route path="/password-manager" element={<PasswordManager />} />
-            <Route path="/password-generator" element={<PasswordGenerator />} />
-          </Routes>
-        </HashRouter>
+            <LeftSide />
+            <Routes>
+              <Route path="/password-manager" element={<PasswordManager />} />
+              <Route path="/password-generator" element={<PasswordGenerator />} />
+            </Routes>
+          </HashRouter>
       </div>
     </div>
   );

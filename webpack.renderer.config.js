@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const path = require("path");
 const rules = require("./webpack.rules");
 
@@ -35,9 +36,20 @@ module.exports = {
     ],
   },
   resolve: {
+    fallback: {
+      fs: false,
+      os: false,
+      path: false,
+    },
     extensions: [".js", ".jsx"],
     modules: [path.resolve(__dirname, "src"), "node_modules"],
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      process: "process/browser",
+      Buffer: ["buffer", "Buffer"],
+    }),
+  ],
   // Add devServer configuration here
   devServer: {
     hot: true,

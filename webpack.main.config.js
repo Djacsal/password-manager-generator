@@ -5,8 +5,14 @@ module.exports = {
    * This is the main entry point for your application, it's the first file
    * that runs in the main process.
    */
+
   entry: "./src/main.js",
   resolve: {
+    fallback: {
+      fs: false,
+      os: false,
+      path: false,
+    },
     fallback: {
       path: require.resolve("path-browserify"),
     },

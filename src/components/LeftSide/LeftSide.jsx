@@ -33,7 +33,7 @@ const LeftSide = () =>{
             
             <div className="option">
               <IoMdSettings className="react_icon"/>
-              <Link to="/Generator" className="option-button">
+              <Link to="/password-form" className="option-button">
                 Настройки
               </Link>
             </div>
