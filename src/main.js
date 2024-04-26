@@ -1,5 +1,68 @@
-const { app, BrowserWindow } = require("electron");
+import { app, BrowserWindow, ipcMain } from "electron";
+import { safeStorage } from "electron";
+
+const fs = require("fs");
 const path = require("path");
+
+const encryptPassword = (password) => {
+  if (safeStorage.isEncryptionAvailable()) {
+    return safeStorage.encryptString(password);
+  } else {
+    console.error("Шифрование недоступно");
+    return null;
+  }
+};
+
+const saveToStorage = (site, login, password) => {
+  const encryptedPassword = encryptPassword(password); // Предполагается, что encryptPassword - это ваша функция для шифрования пароля
+  if (encryptedPassword) {
+    // Получение пути к директории userData
+    const userDataPath = app.getPath("userData");
+    // Создание пути к файлу в директории userData
+    const filePath = path.join(userDataPath, "encryptedData.json");
+
+    let data;
+    try {
+      const fileData = fs.readFileSync(filePath, "utf8");
+      data = JSON.parse(fileData);
+    } catch (err) {
+      data = [];
+    }
+
+    // Создание объекта с информацией о сайте, логине и зашифрованном пароле
+    const newEntry = {
+      site: site,
+      login: login,
+      encryptedPassword: encryptedPassword,
+    };
+
+    data.push(newEntry);
+
+    const jsonData = JSON.stringify(data, null, 2);
+    fs.writeFileSync(filePath, jsonData);
+  }
+};
+
+// Функция для чтения зашифрованных паролей из файла в директории userData
+const readEncryptedPasswords = () => {
+  // Получение пути к директории userData
+  const userDataPath = app.getPath("userData");
+  // Создание пути к файлу в директории userData
+  const filePath = path.join(userDataPath, "encryptedData.json");
+  let data;
+  try {
+    const fileData = fs.readFileSync(filePath, "utf8");
+    data = JSON.parse(fileData);
+  } catch (err) {
+    console.error("Ошибка при чтении файла:", err);
+    data = [];
+  }
+  return data;
+};
+
+const decryptPassword = (password) => {
+  return safeStorage.decryptString(password);
+};
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -15,7 +78,7 @@ const createWindow = () => {
     fullscreenable: false,
     icon: path.join(__dirname, "logo.png"),
     webPreferences: {
-      preload: MAIN_WINDOW_WEBPACK_ENTRY,
+      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
       // Установка более строгой политики безопасности контента
       sandbox: true,
       nodeIntegration: true,
@@ -35,6 +98,20 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   createWindow();
+  ipcMain.handle("save-to-storage", async (event, site, login, password) => {
+    const encryptedPassword = saveToStorage(site, login, password);
+    return encryptedPassword;
+  });
+
+  ipcMain.handle("read-to-storage", async (event) => {
+    const read = readEncryptedPasswords();
+    return read;
+  });
+
+  ipcMain.handle("decrypt-password", async (event, password) => {
+    const decrypt = decryptPassword(password);
+    return decrypt;
+  });
 
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.

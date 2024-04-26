@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
-import {safeStorage} from 'electron';
 import './PasswordForm.css';
 
 const PasswordForm = () => {
@@ -10,24 +9,21 @@ const PasswordForm = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  
+
   const redirectToPasswordManager = () => {
     navigate('/password-manager'); 
-  };
-  
-  const handleAddPassword = () => {
-    if (safeStorage.isEncryptionAvailable()) {
-      const encryptedPassword = safeStorage.encryptString(password);
-      console.log(encryptedPassword);
-    } else {
-      console.error('Шифрование недоступно');
-    }
-    redirectToPasswordManager();
   };
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  const redirectToPasswordManage = async () => {
+    const  decryptedPassword  = await window.electronAPI.saveToStorage(site, login, password);
+    console.log(decryptedPassword);
+    redirectToPasswordManager();
+   };
+   
 
   return (
     <div className="form-container">
@@ -72,7 +68,7 @@ const PasswordForm = () => {
       </div>
       <div className="button-container">
         <button className="cancel-button" type="button" onClick={redirectToPasswordManager}>Отмена</button>
-        <button className="submit-button" type="button" onClick={handleAddPassword} disabled={!site || !login || !password}>Добавить</button>
+        <button className="submit-button" type="button" onClick={redirectToPasswordManage} disabled={!site || !login || !password}>Добавить</button>
       </div>
     </div>
   );
