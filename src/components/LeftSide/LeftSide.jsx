@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './LeftSide.css';
-import Logo from '../../1Password-logo.png';
-
+import logo from '../../logo4.png';
 import { FaKey } from "react-icons/fa6";
 import { GiPowerGenerator } from "react-icons/gi";
 import { IoMdSettings } from "react-icons/io";
 import { GiExitDoor } from "react-icons/gi";
+import { AiOutlineSafetyCertificate } from "react-icons/ai";
 
 
 const LeftSide = () =>{
@@ -14,7 +14,7 @@ const LeftSide = () =>{
         <div className="left_side">
           
           <div className="my_blok">
-            <img src={Logo} alt="" />
+            <img src={logo} alt="" />
           </div>
           <div className="options">
             <div className="option">
@@ -30,17 +30,26 @@ const LeftSide = () =>{
                 Генератор
               </Link>
             </div>
+
+            <div className="option">
+              <AiOutlineSafetyCertificate className="react_icon"/>
+              <Link to="/check-password" className="option-button">
+                Уязвимости
+              </Link>
+            </div>
             
             <div className="option">
               <IoMdSettings className="react_icon"/>
-              <Link to="/password-form" className="option-button">
-                Настройки
+              <Link to="/profile-user" className="option-button">
+                Профиль
               </Link>
             </div>
           </div>
           <div className="exit">
             <GiExitDoor className="react_icon"/>
-            <button className="exit-button">Выход</button>
+            <Link to="/" className="option-button">
+                Выход
+            </Link>
           </div>
         </div>
 

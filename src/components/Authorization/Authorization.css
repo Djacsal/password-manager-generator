@@ -1,0 +1,144 @@
+.login-window {
+    width: 500px;
+    height: 300px;
+    padding: 20px;
+    margin-left: 80px;
+  }
+  
+  .login-window h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .entrance {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .entrance h3 {
+    margin: 0 0 10px 0;
+  }
+
+.autorization-label{
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  margin-left: 50px;
+}
+
+.error-message {
+    margin-left: 50px;
+    color: red;
+    font-size: 13px;
+}
+
+.error-top {
+  margin-top: -18px;
+}
+  
+  .register-link {
+    display: block;
+    text-align: right;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .register-link:hover {
+    text-decoration: underline;
+  }
+  
+  .login-window form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .email-input input[type="email"] {
+    width: 400px;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    margin-left: 50px;
+    height: 40px;
+    
+  }
+
+.email-input {
+  margin-bottom: 20px;
+}
+
+.password-input {
+    display: flex;
+    margin-bottom: 10px;
+}
+.button-password {
+    position: absolute;
+    top: 59%;
+    right: 160px;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.form-control-input {
+    width: 400px;
+    height: 40px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-left: 50px;
+    padding-right: 75px;
+}
+
+.generate-button {
+    margin-top: 10px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.autorization-button {
+    margin-left: 50px;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    width: 400px;
+}
+  
+.autorization-button:hover {
+    background-color: #0056b3;
+}
+
+.regisret-help-button {
+  display: flex;
+  margin-left: 130px;
+}
+
+.to-help-button {
+  font-size: 14px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color:#007bff;
+  margin-top: 10px;
+}
+
+.to-registration-button{
+    font-size: 14px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color:#007bff;
+    margin-top: 10px;
+}
+
+.indent {
+  color:#007bff;
+  margin: 7px 3px 0 3px;
+
+}

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './PasswordGenerator.css';
 
 const PasswordGenerator = () => {
+  const navigate = useNavigate();
   const [password, setPassword] = useState('');
   const [options, setOptions] = useState({
     uppercase: true,
@@ -12,7 +14,7 @@ const PasswordGenerator = () => {
   });
 
   const MIN_PASSWORD_LENGTH = 4;
-  const MAX_PASSWORD_LENGTH = 30;
+  const MAX_PASSWORD_LENGTH = 35;
 
   const handleChange = (e) => {
     const { name, checked, value } = e.target;
@@ -29,52 +31,40 @@ const PasswordGenerator = () => {
     }
   };
 
- const generatePassword = () => {
+  const generatePassword = () => {
     const charset = {
       uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
       lowercase: 'abcdefghijklmnopqrstuvwxyz',
       numbers: '0123456789',
       symbols: '!@#$%^&*()_-+=<>?',
     };
-
-    if (options.length < MIN_PASSWORD_LENGTH) {
-      setOptions((prevOptions) => ({
-        ...prevOptions,
-        length: MIN_PASSWORD_LENGTH,
-      }));
-    }
-
-    const selectedOptions = Object.keys(options)
-      .filter((key) => key !== 'length' && options[key]);
-
-    if (selectedOptions.length === 0) {
-      setPassword('');
-      return;
-    }
-
+  
     let newPassword = '';
-    const baseLength = Math.max(Math.floor(options.length / selectedOptions.length), 1);
-
+    const selectedOptions = Object.keys(options)
+    .filter((key) => key!== 'length' && options[key]);
+    const typesCount = selectedOptions.length;
+    const charsPerType = Math.ceil(options.length / typesCount);
+  
     selectedOptions.forEach((optionKey) => {
       const currentCharset = charset[optionKey];
-      for (let i = 0; i < baseLength; i++) {
+      for (let j = 0; j < charsPerType; j++) { 
         const randomIndex = Math.floor(Math.random() * currentCharset.length);
         newPassword += currentCharset[randomIndex];
       }
     });
-
-    const remainingLength = options.length - newPassword.length;
-
-    for (let i = 0; i < remainingLength; i++) {
+    const requiredLength = options.length;
+    while (newPassword.length < requiredLength) {
       const randomOption = selectedOptions[Math.floor(Math.random() * selectedOptions.length)];
       const randomIndex = Math.floor(Math.random() * charset[randomOption].length);
       newPassword += charset[randomOption][randomIndex];
     }
-
     newPassword = newPassword.split('').sort(() => Math.random() - 0.5).join('');
-
+    if (newPassword.length < MIN_PASSWORD_LENGTH) {
+      setPassword('');
+      return;
+    }
     setPassword(newPassword);
- };
+  };
 
  const [isCopied, setIsCopied] = useState(false);
 
@@ -96,9 +86,17 @@ const PasswordGenerator = () => {
     setIsCopied(false);
  };
 
+const redirectToTypeGeneration2 = () => {
+  navigate('/memory-passwor'); 
+};
+
  return (
     <div className="password-generator">
       <h1 className="password_title">Генератор паролей</h1>
+      <div className="type-generation">
+        <button className="type-button_activ">Генератор 1</button>
+        <button className="type-button" onClick={redirectToTypeGeneration2}>Генератор 2</button>
+      </div>
       <div className="options">
         <label>
           <input
@@ -152,8 +150,8 @@ const PasswordGenerator = () => {
           />
         </div>
       </div>
-
-      <button onClick={handleGeneratePassword}>Сгенерировать пароль</button>
+      
+      <button className='create-button' onClick={handleGeneratePassword}>Сгенерировать пароль</button>
 
       <div className="password-output">
         <p>{password}</p>

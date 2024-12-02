@@ -6,59 +6,33 @@ import PasswordManager from "./components/RightSide/PasswordManager/PasswordMana
 import PasswordGenerator from "./components/RightSide/PasswordGenerator/PasswordGenerator";
 import PasswordForm from './components/RightSide/PasswordForm/PasswordForm';
 import SiteForm from './components/RightSide/SiteForm/SiteForm';
+import Authorization from './components/Authorization/Authorization';
+import Registration from './components/Registration/Registration';
+import Profile from './components/RightSide/Profile/Profile';
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
+import MemoryPassword from './components/RightSide/PasswordGenerator/MemoryPassword/MemoryPassword';
+import CheckPassword from './components/RightSide/CheckPassword/CheckPassword';
 
 function App() {
 
-  /*const saveToStorage = () => {
-    if (safeStorage.isEncryptionAvailable()) {
-      const encryptedPassword = safeStorage.encryptString("password");
-      console.log("Сохраняем данные:", encryptedPassword);
-      return encryptedPassword;
-    } else {
-      console.error("Шифрование недоступно");
-    }
-  };
-  
-  ipcMain.handle("save-to-storage", async () => {
-    // Здесь вызывается ваша функция saveToStorage
-    const encryptedPassword = saveToStorage();
-    return encryptedPassword;
-  });*/
-
   return (
       <div className="App">
-        <div className="container">
-          <HashRouter>
-            <LeftSide />
-            <Routes>
-              <Route path="/password-manager" element={<PasswordManager />} />
-              <Route path="/password-generator" element={<PasswordGenerator />} />
-              <Route path="/password-form" element={<PasswordForm />} />
-              <Route path="/site-form" element={<SiteForm />} />
-            </Routes>
-          </HashRouter>
-        </div>
+        <HashRouter>
+          <Routes>
+              <Route path="/" element={<Authorization />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/registration" element={<Registration />} />
+              <Route path="/password-manager/*" element={<><LeftSide /><PasswordManager /></>} />
+              <Route path="/site-form/*" element={<><LeftSide /><SiteForm /></>} />
+              <Route path="/password-generator/*" element={<><LeftSide /><PasswordGenerator /></>} />
+              <Route path="/memory-passwor" element={<><LeftSide /><MemoryPassword /></>} />
+              <Route path="/password-form/*" element={<><LeftSide /><PasswordForm /></>} />
+              <Route path="/check-password/*" element={<><LeftSide /><CheckPassword /></>} />
+              <Route path="/profile-user/*" element={<><LeftSide /><Profile /></>} />
+          </Routes>
+        </HashRouter>
       </div>
   );
 }
 
 export default App;
-
-
-/*function App() {
-  return (
-    <div className="App">
-      <div className="container">
-        <HashRouter>
-            <LeftSide />
-            <Routes>
-              <Route path="/password-manager" element={<PasswordManager />} />
-              <Route path="/password-generator" element={<PasswordGenerator />} />
-            </Routes>
-          </HashRouter>
-      </div>
-    </div>
-  );
-}
-
-export default App;*/

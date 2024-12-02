@@ -4,6 +4,7 @@ import './PasswordForm.css';
 
 const PasswordForm = () => {
 
+  const [url, setUrl] = useState('');
   const [site, setSite] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -18,16 +19,26 @@ const PasswordForm = () => {
     setShowPassword(!showPassword);
   };
 
-  const redirectToPasswordManage = async () => {
-    const  decryptedPassword  = await window.electronAPI.saveToStorage(site, login, password);
-    console.log(decryptedPassword);
+  const addEntries = async () => {
+    const  addEntry  = await window.electronAPI.AddEntries(site, login, password, url);
     redirectToPasswordManager();
-   };
+  };
    
 
   return (
     <div className="form-container">
       <h2 className="form-header">Добавить новую запись</h2>
+      <div className="form-group">
+        <label className="form-label" htmlFor="url">URL</label>
+        <input 
+          className="form-control" 
+          type="text" 
+          id="url" 
+          placeholder="Введите URL сайта" 
+          value={url} 
+          onChange={(e) => setUrl(e.target.value)} 
+        />
+      </div>
       <div className="form-group">
         <label className="form-label" htmlFor="site">Сайт</label>
         <input 
@@ -54,7 +65,7 @@ const PasswordForm = () => {
         <label className="form-label" htmlFor="password">Пароль</label>
         <div className="password-input-container">
           <input 
-            className="form-control" 
+            className="form-control password-control" 
             type={showPassword ? 'text' : 'password'} 
             id="password" 
             placeholder="Введите пароль" 
@@ -68,7 +79,7 @@ const PasswordForm = () => {
       </div>
       <div className="button-container">
         <button className="cancel-button" type="button" onClick={redirectToPasswordManager}>Отмена</button>
-        <button className="submit-button" type="button" onClick={redirectToPasswordManage} disabled={!site || !login || !password}>Добавить</button>
+        <button className="submit-button" type="button" onClick={addEntries} disabled={!url || !site || !login || !password}>Добавить</button>
       </div>
     </div>
   );
